@@ -1,31 +1,53 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Edit Pegawai</title>
-</head>
-<body>
-    <h2>Edit Data Pegawai</h2>
-    <form action="{{ route('employees.update', $employee->id) }}" method="POST">
-        @csrf
-        @method('PUT')
-        <table>
-            <tr><td>Nama Lengkap</td><td><input type="text" name="nama_lengkap" value="{{ old('nama_lengkap', $employee->nama_lengkap) }}"></td></tr>
-            <tr><td>Email</td><td><input type="email" name="email" value="{{ old('email', $employee->email) }}"></td></tr>
-            <tr><td>Nomor Telepon</td><td><input type="text" name="nomor_telepon" value="{{ old('nomor_telepon', $employee->nomor_telepon) }}"></td></tr>
-            <tr><td>Tanggal Lahir</td><td><input type="date" name="tanggal_lahir" value="{{ old('tanggal_lahir', $employee->tanggal_lahir) }}"></td></tr>
-            <tr><td>Alamat</td><td><input type="text" name="alamat" value="{{ old('alamat', $employee->alamat) }}"></td></tr>
-            <tr><td>Tanggal Masuk</td><td><input type="date" name="tanggal_masuk" value="{{ old('tanggal_masuk', $employee->tanggal_masuk) }}"></td></tr>
-            <tr>
-                <td>Status</td>
-                <td>
-                    <select name="status">
-                        <option value="aktif" {{ $employee->status == 'aktif' ? 'selected' : '' }}>Aktif</option>
-                        <option value="nonaktif" {{ $employee->status == 'nonaktif' ? 'selected' : '' }}>Nonaktif</option>
-                    </select>
-                </td>
-            </tr>
-            <tr><td colspan="2"><button type="submit">Update</button></td></tr>
-        </table>
-    </form>
-</body>
-</html>
+@extends('layouts.master')
+@section('title','Edit Karyawan')
+@section('content')
+<h2>Edit Karyawan</h2>
+
+<form action="{{ route('employees.update', $employee->id) }}" method="POST">
+@csrf @method('PUT')
+
+<label>Nama Lengkap</label><br>
+<input type="text" name="nama_lengkap" value="{{ $employee->nama_lengkap }}" required><br><br>
+
+<label>Email</label><br>
+<input type="email" name="email" value="{{ $employee->email }}" required><br><br>
+
+<label>Nomor Telepon</label><br>
+<input type="text" name="nomor_telepon" value="{{ $employee->nomor_telepon }}"><br><br>
+
+<label>Tanggal Lahir</label><br>
+<input type="date" name="tanggal_lahir" value="{{ $employee->tanggal_lahir }}"><br><br>
+
+<label>Alamat</label><br>
+<textarea name="alamat">{{ $employee->alamat }}</textarea><br><br>
+
+<label>Tanggal Masuk</label><br>
+<input type="date" name="tanggal_masuk" value="{{ $employee->tanggal_masuk }}" required><br><br>
+
+<label>Status</label><br>
+<select name="status">
+    <option value="aktif" {{ $employee->status=='aktif'?'selected':'' }}>Aktif</option>
+    <option value="nonaktif" {{ $employee->status=='nonaktif'?'selected':'' }}>Nonaktif</option>
+</select><br><br>
+
+<label>Departemen</label><br>
+<select name="departemen_id" required>
+    @foreach($departments as $d)
+        <option value="{{$d->id}}" {{ $employee->departemen_id==$d->id?'selected':'' }}>
+            {{$d->nama_departemen}}
+        </option>
+    @endforeach
+</select><br><br>
+
+<label>Jabatan</label><br>
+<select name="jabatan_id" required>
+    @foreach($positions as $p)
+        <option value="{{$p->id}}" {{ $employee->jabatan_id==$p->id?'selected':'' }}>
+            {{$p->nama_jabatan}}
+        </option>
+    @endforeach
+</select><br><br>
+
+<button type="submit">Update</button>
+</form>
+@endsection
