@@ -6,8 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Attendance extends Model
 {
-    protected $table = 'attendance'; // jika nama table 'attendance'
-    protected $fillable = ['karyawan_id', 'tanggal', 'waktu_masuk', 'waktu_keluar', 'status_absensi'];
+    protected $table = 'attendance'; // sesuai tabel kamu tanpa 's'
+
+    protected $fillable = [
+        'karyawan_id',
+        'tanggal',
+        'waktu_masuk',
+        'waktu_keluar',
+        'status_absensi'
+    ];
 
     public function employee()
     {

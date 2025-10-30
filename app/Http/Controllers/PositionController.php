@@ -21,18 +21,16 @@ class PositionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_jabatan' => 'required',
-            'gaji_pokok' => 'required|numeric'
+            'nama_jabatan' => 'required|string|max:100',
+            'gaji_pokok'   => 'required|numeric',
         ]);
 
-        Position::create($request->all());
-        return redirect()->route('positions.index')->with('success', 'Jabatan berhasil ditambahkan');
-    }
+        Position::create([
+            'nama_jabatan' => $request->nama_jabatan,
+            'gaji_pokok'   => $request->gaji_pokok,
+        ]);
 
-    public function show($id)
-    {
-        $position = Position::findOrFail($id);
-        return view('positions.show', compact('position'));
+        return redirect()->route('positions.index')->with('success', 'Jabatan berhasil ditambahkan.');
     }
 
     public function edit($id)
@@ -44,19 +42,22 @@ class PositionController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nama_jabatan' => 'required',
-            'gaji_pokok' => 'required|numeric'
+            'nama_jabatan' => 'required|string|max:100',
+            'gaji_pokok'   => 'required|numeric',
         ]);
 
         $position = Position::findOrFail($id);
-        $position->update($request->all());
+        $position->update([
+            'nama_jabatan' => $request->nama_jabatan,
+            'gaji_pokok'   => $request->gaji_pokok,
+        ]);
 
-        return redirect()->route('positions.index')->with('success', 'Jabatan berhasil diperbarui');
+        return redirect()->route('positions.index')->with('success', 'Jabatan berhasil diperbarui.');
     }
 
     public function destroy($id)
     {
         Position::destroy($id);
-        return redirect()->route('positions.index')->with('success', 'Jabatan berhasil dihapus');
+        return redirect()->route('positions.index')->with('success', 'Jabatan berhasil dihapus.');
     }
 }

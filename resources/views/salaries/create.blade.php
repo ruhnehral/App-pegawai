@@ -1,33 +1,41 @@
 @extends('layouts.master')
-@section('title','Input Gaji')
+@section('title','Tambah Gaji')
+
 @section('content')
-<h2>Input Gaji</h2>
+<div class="container">
+    <h2>Tambah Gaji</h2>
 
-<form action="{{ route('salaries.store') }}" method="POST">
-@csrf
+    <form action="{{ route('salaries.store') }}" method="POST">
+        @csrf
 
-<label>Karyawan</label><br>
-<select name="karyawan_id" required>
-@foreach($employees as $e)
-<option value="{{ $e->id }}">{{ $e->nama_lengkap }}</option>
-@endforeach
-</select><br><br>
+        <label>Karyawan</label>
+        <select name="karyawan_id" required>
+            <option value="">-- Pilih Karyawan --</option>
+            @foreach($employees as $e)
+                <option value="{{ $e->id }}">{{ $e->nama_lengkap }}</option>
+            @endforeach
+        </select>
 
-<label>Bulan</label><br>
-<input type="text" name="bulan" placeholder="contoh: Januari" required><br><br>
+        <label>Bulan</label>
+        <input type="month" name="bulan" required>
 
-<label>Gaji Pokok</label><br>
-<input type="number" name="gaji_pokok" required><br><br>
+        <label>Gaji Pokok</label>
+        <input type="number" name="gaji_pokok" step="any" min="0" required>
 
-<label>Tunjangan</label><br>
-<input type="number" name="tunjangan"><br><br>
+        <label>Tunjangan</label>
+        <input type="number" name="tunjangan" step="any" min="0">
 
-<label>Potongan</label><br>
-<input type="number" name="potongan"><br><br>
+        <label>Potongan</label>
+        <input type="number" name="potongan" step="any" min="0">
 
-<label>Total Gaji</label><br>
-<input type="number" name="total_gaji" required><br><br>
+        <label>Total Gaji</label>
+        <input type="number" name="total_gaji" step="any" min="0" required>
 
-<button type="submit">Simpan</button>
-</form>
+        <div class="form-btn-group">
+            <button type="submit" class="btn btn-success">Simpan</button>
+            <a href="{{ route('salaries.index') }}" class="btn btn-danger">Batal</a>
+        </div>
+
+    </form>
+</div>
 @endsection

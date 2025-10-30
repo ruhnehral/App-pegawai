@@ -10,12 +10,22 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_lengkap', 100);
+            $table->string('nama_lengkap');
             $table->string('email', 100)->unique();
-            $table->string('no_hp', 15)->nullable();
-            $table->date('tanggal_masuk');
-            $table->unsignedBigInteger('departemen_id');
-            $table->unsignedBigInteger('jabatan_id');
+            $table->string('no_telepon', 20)->nullable();
+            $table->text('alamat')->nullable();
+            $table->date('tanggal_lahir')->nullable();
+            $table->date('tanggal_masuk')->nullable();
+            $table->string('status', 20)->default('aktif');
+            
+            // Relasi foreign key
+            $table->unsignedBigInteger('departemen_id')->nullable();
+            $table->unsignedBigInteger('posisi_id')->nullable();
+
+            // Buat foreign key constraint
+            $table->foreign('departemen_id')->references('id')->on('departments')->onDelete('set null');
+            $table->foreign('posisi_id')->references('id')->on('positions')->onDelete('set null');
+
             $table->timestamps();
         });
     }

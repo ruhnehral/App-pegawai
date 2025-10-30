@@ -9,14 +9,15 @@ class Employee extends Model
     protected $fillable = [
         'nama_lengkap',
         'email',
-        'nomor_telepon',
+        'no_telepon',
         'tanggal_lahir',
         'alamat',
         'tanggal_masuk',
         'status',
         'departemen_id',
-        'jabatan_id',
+        'jabatan_id'
     ];
+
 
     public function department()
     {
@@ -25,7 +26,7 @@ class Employee extends Model
 
     public function position()
     {
-        return $this->belongsTo(Position::class, 'jabatan_id');
+    return $this->belongsTo(Position::class, 'jabatan_id');
     }
 
     public function attendance()

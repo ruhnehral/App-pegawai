@@ -1,16 +1,23 @@
 @extends('layouts.master')
-@section('title','Tambah Jabatan')
+@section('title', 'Tambah Jabatan')
+
 @section('content')
-<h2>Tambah Jabatan</h2>
+<div class="container">
+    <h2>Tambah Jabatan</h2>
 
-<form action="{{ route('positions.store') }}" method="POST">
-    @csrf
-    <label>Nama Jabatan</label><br>
-    <input type="text" name="nama_jabatan" required><br><br>
+    <form action="{{ route('positions.store') }}" method="POST">
+        @csrf
 
-    <label>Gaji Pokok</label><br>
-    <input type="number" name="gaji_pokok" required><br><br>
+        <label>Nama Jabatan</label>
+        <input type="text" name="nama_jabatan" required>
 
-    <button type="submit">Simpan</button>
-</form>
+        <label>Gaji Pokok</label>
+        <input type="number" name="gaji_pokok" step="0.01" required>
+
+        <div class="form-btn-group">
+            <button type="submit" class="btn btn-success">Simpan</button>
+            <a href="{{ route('positions.index') }}" class="btn btn-danger">Batal</a>
+        </div>
+    </form>
+</div>
 @endsection

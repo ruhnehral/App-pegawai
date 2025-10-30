@@ -6,6 +6,11 @@ use App\Http\Controllers\PositionController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\SalaryController;
 
+Route::get('/', function () {
+    return redirect()->route('employees.index');
+});
+
+// ✅ Route untuk tiap menu utama
 Route::resource('employees', EmployeeController::class);
 Route::resource('departments', DepartmentController::class);
 Route::resource('positions', PositionController::class);
